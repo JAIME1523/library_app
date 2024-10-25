@@ -5,49 +5,25 @@ class LocalStorage {
 
   static Future configurePrefs() async =>
       prefs = await SharedPreferences.getInstance();
-  //int
-  static Future<void> setInt(PreferencesInt name, int data) async =>
-      await prefs!.setInt(name.value, data);
-  static int? getInt(PreferencesInt name) => prefs!.getInt(name.value);
-
+ 
   //String
-  static Future<void> setString(PreferencesString name, String data) async =>
-      await prefs!.setString(name.value, data);
-  static String getString(PreferencesString name) =>
-      prefs!.getString(name.value) ?? '';
+  static Future<void> setString(PreferencesListString name, List<String> data) async => await prefs!.setStringList(name.value, data);
+  static List<String> getStringList(PreferencesListString name) =>
+      prefs!.getStringList(name.value) ?? [];
 
-  //bool
-  static Future<void> setBool(PreferencesBool name, bool data) async =>
-      await prefs!.setBool(name.value, data);
-  static bool getBool(PreferencesBool name) =>
-      prefs!.getBool(name.value) ?? false;
+
 
   static remove(String name) => prefs!.remove(name);
 
-  static removeAll(String name) => prefs!.clear();
+  static removeAll() => prefs!.clear();
 }
 
-enum PreferencesInt {
-  age('age');
+
+
+enum PreferencesListString {
+  users('users');
 
   final String value;
-  const PreferencesInt(this.value);
+  const PreferencesListString(this.value);
 }
 
-enum PreferencesString {
-  name('name'),
-  lastName('lastName'),
-  email('email'),
-  birthdate("birthdate"),
-  gender('gender');
-
-  final String value;
-  const PreferencesString(this.value);
-}
-
-enum PreferencesBool {
-  isBool('isBool');
-
-  final String value;
-  const PreferencesBool(this.value);
-}

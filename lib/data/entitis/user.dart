@@ -39,7 +39,7 @@ enum GenderEnum {
   final String value;
   const GenderEnum(this.value);
 }
-final statusValues = EnumValues({
+final genderValues = EnumValues({
   "femenino"   : GenderEnum.femenino,
   "masculino"    : GenderEnum.masculino,
   "otro" : GenderEnum.otro,

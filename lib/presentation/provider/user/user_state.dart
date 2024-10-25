@@ -4,36 +4,36 @@ part of 'user_bloc.dart';
 sealed class UserState {
   final bool isActive;
   final bool isLoading;
-  final User? user;
+  final List<User> users;
 
- const UserState({required this.isActive, required this.isLoading, this.user});
+ const UserState({required this.isActive, required this.isLoading, required this.users});
 
   UserState copyWith(
     final bool? isActive,
     final bool? isLoading,
-    final User? user,
+    final List<User>? users,
   );
 }
 
 final class UserInitial extends UserState {
- const UserInitial() : super(isActive: false, isLoading: true, user: null);
+  UserInitial() : super(isActive: false, isLoading: true, users: []);
 
   @override
-  UserState copyWith(bool? isActive, bool? isLoading, User? user) => UserSetState(
+  UserState copyWith(bool? isActive, bool? isLoading, List<User>? users) => UserSetState(
       isActive: isActive ?? this.isActive,
       isLoading: isLoading ?? this.isLoading,
-      user: user ?? this.user);
+      users: users ?? this.users);
 }
 
 
 class UserSetState extends UserState {
- const UserSetState({required super.isActive, required super.isLoading, super.user});
+ const UserSetState({required super.isActive, required super.isLoading,required super.users});
 
 
   @override
-  UserState copyWith(bool? isActive, bool? isLoading, User? user) => UserSetState(
+  UserState copyWith(bool? isActive, bool? isLoading,List<User>? users) => UserSetState(
       isActive: isActive ?? this.isActive,
       isLoading: isLoading ?? this.isLoading,
-      user: user ?? this.user);
+      users: users ?? this.users);
  
 }

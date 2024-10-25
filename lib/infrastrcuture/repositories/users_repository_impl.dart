@@ -8,7 +8,7 @@ class UsersRepositoryImpl extends UsersRepository {
   UsersRepositoryImpl(this.datasource);
 
   @override
-  Future<User> getUser() async => datasource.getUser();
+  Future<List<User>> getUser() async => datasource.getUser();
 
   @override
   Future<bool> saveUser(User newUser) async => datasource.saveUser(newUser);
