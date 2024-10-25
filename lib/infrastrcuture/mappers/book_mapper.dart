@@ -1,5 +1,5 @@
 import 'package:library_app/data/entitis/book.dart';
-import 'package:library_app/infrastrcuture/models/open_library/libray_reponse.dart';
+import 'package:library_app/infrastrcuture/infrastructure.dart';
 
 class BookMapper {
   static const String _imageError =
@@ -10,10 +10,10 @@ class BookMapper {
       titleSuggest: bookRes.titleSuggest,
       autorImage: (bookRes.authorKey != null)
           ? bookRes.authorKey!.isNotEmpty
-              ? "https://covers.openlibrary.org/a/olid/${bookRes.authorKey}-M.jpg"
+              ? "https://covers.openlibrary.org/a/olid/${bookRes.authorKey![0]}-M.jpg"
               : _imageError
           : _imageError,
-      authorName: bookRes.authorName?.first ?? "Sin-nombre",
+      authorName:  bookRes.authorName == null ? "Sin-nombre": bookRes.authorName!.isNotEmpty ?  bookRes.authorName![0]  :"sin nombre",
       contributor: bookRes.contributor ?? [],
       authorAlternativeName: bookRes.authorAlternativeName ?? [],
       ratingsAverage: bookRes.ratingsAverage ?? 0.0,
