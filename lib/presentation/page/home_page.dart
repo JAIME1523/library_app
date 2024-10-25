@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
       child: Builder(builder: (context) {
         final provider = context.watch<HomeBloc>();
         return Scaffold(
-          body: _switchView(provider.state.currentView),
+          body: SafeArea(child: _switchView(provider.state.currentView)),
           bottomNavigationBar: CustomBottonNavigation(
             buttons: [
               ButtonMenu(

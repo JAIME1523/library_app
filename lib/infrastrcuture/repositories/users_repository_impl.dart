@@ -12,4 +12,7 @@ class UsersRepositoryImpl extends UsersRepository {
 
   @override
   Future<bool> saveUser(User newUser) async => datasource.saveUser(newUser);
+
+  @override
+  Future<bool> deleteAll() async => datasource.deleteAll();
 }

@@ -9,7 +9,9 @@ class UserMapper {
       email: userdb.email,
       age: userdb.age,
       birthdate: DateFormat('dd/MM/yy').parse(userdb.birthdate),
-      gender: genderValues.map[userdb.gender] ?? GenderEnum.otro);
+      gender: genderValues.map[userdb.gender] ?? GenderEnum.otro,
+      phoneNumber: userdb.phoneNumber
+      );
 
   static UserDb usertoDB(User user) => UserDb(
       name: user.name,
@@ -17,5 +19,7 @@ class UserMapper {
       email: user.email,
       gender: user.gender.value ,
       lastName: user.lastName,
-      age: user.age);
+      age: user.age,
+      phoneNumber: user.phoneNumber
+      );
 }

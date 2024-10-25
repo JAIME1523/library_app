@@ -5,22 +5,25 @@ class User {
   final int age;
   final DateTime birthdate;
   final GenderEnum gender;
-
+  final String phoneNumber;
   User(
       {required this.name,
       required this.lastName,
       required this.email,
       required this.age,
       required this.birthdate,
-      required this.gender});
+      required this.gender,
+     required this.phoneNumber, 
+      });
 
   User copyWith(
-     String? name,
-     String? lastName,
-     String? email,
-     int? age,
-     DateTime? birthdate,
-     GenderEnum? gender,
+    String? name,
+    String? lastName,
+    String? email,
+    int? age,
+    DateTime? birthdate,
+    GenderEnum? gender,
+    String? phoneNumber
   ) =>
       User(
           name: name ?? this.name,
@@ -28,7 +31,9 @@ class User {
           email: email ?? this.email,
           age: age ?? this.age,
           birthdate: birthdate ?? this.birthdate,
-          gender: gender ?? this.gender);
+          gender: gender ?? this.gender,
+          phoneNumber: phoneNumber ?? this.phoneNumber
+          );
 }
 
 enum GenderEnum {
@@ -39,10 +44,11 @@ enum GenderEnum {
   final String value;
   const GenderEnum(this.value);
 }
+
 final genderValues = EnumValues({
-  "femenino"   : GenderEnum.femenino,
-  "masculino"    : GenderEnum.masculino,
-  "otro" : GenderEnum.otro,
+  "femenino": GenderEnum.femenino,
+  "masculino": GenderEnum.masculino,
+  "otro": GenderEnum.otro,
 });
 
 class EnumValues<T> {

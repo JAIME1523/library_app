@@ -27,4 +27,14 @@ class UserSharedDatasource extends UsersDatasource {
       return false;
     }
   }
+
+  @override
+  Future<bool> deleteAll() async {
+    try {
+      await LocalStorage.remove(PreferencesListString.users.name);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }
