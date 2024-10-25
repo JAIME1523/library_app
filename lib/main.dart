@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:library_app/infrastrcuture/datasource/open_library_datasource.dart';
-import 'package:nav_service/snack/snack_service.dart';
+import 'package:library_app/config/utils/utils.dart';
+import 'package:library_app/presentation/page/home_page.dart';
+import 'package:nav_service/nav_service.dart';
 
-void main() => runApp(const MyApp());
+import 'config/theme/app_theme.dart';
+
+void main() async{
+WidgetsFlutterBinding.ensureInitialized();
+ await LocalStorage.configurePrefs();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,19 +18,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       scaffoldMessengerKey: SnackService.messagerKey,
-      title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: Center(
-          child: ElevatedButton(
-              onPressed: () {
-                OpenLibraryDatasource().getBooksByQuery("the lord of the rings");
-              },
-              child: Text('Hello World')),
-        ),
-      ),
+      navigatorKey: NavService.navigatorKey,
+      title: 'Library App',
+      home: const HomePage(),
+      theme: AppTheme().getTheme(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

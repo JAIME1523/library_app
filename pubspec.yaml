@@ -9,10 +9,13 @@ environment:
   sdk: ^3.5.3
 
 dependencies:
+  bloc: ^8.1.4
   cupertino_icons: ^1.0.8
   dio: ^5.7.0
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.6
+  meta: ^1.15.0
   nav_service: ^0.1.0
   shared_preferences: ^2.3.2
 

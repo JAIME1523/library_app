@@ -39,3 +39,20 @@ enum GenderEnum {
   final String value;
   const GenderEnum(this.value);
 }
+final statusValues = EnumValues({
+  "femenino"   : GenderEnum.femenino,
+  "masculino"    : GenderEnum.masculino,
+  "otro" : GenderEnum.otro,
+});
+
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
+}
