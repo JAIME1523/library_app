@@ -48,15 +48,13 @@ class _MidInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-
     final styleText = Theme.of(context).textTheme;
     return Container(
       height: 250,
       width: double.infinity,
       decoration: BoxDecoration(
-      color: colors.secondaryContainer,
-borderRadius: BorderRadius.circular(30)
-      ),
+          color: colors.secondaryContainer,
+          borderRadius: BorderRadius.circular(30)),
       child: Padding(
         padding:
             const EdgeInsets.only(bottom: 130, top: 10, left: 15, right: 15),
@@ -69,15 +67,18 @@ borderRadius: BorderRadius.circular(30)
               color: Colors.black,
               thickness: 2,
             ),
-            _ColumInfo(
-                title: "Paginas", info: book.pageMedian.toString()),
+            _ColumInfo(title: "Paginas", info: book.pageMedian.toString()),
             const VerticalDivider(
               color: Colors.black,
               thickness: 2,
             ),
             Column(
               children: [
-                 Text("Puntuación",style:  styleText.titleSmall, textAlign: TextAlign.center,),
+                Text(
+                  "Puntuación",
+                  style: styleText.titleSmall,
+                  textAlign: TextAlign.center,
+                ),
                 Icon(
                   Icons.star_half_outlined,
                   color: Colors.yellow.shade800,
@@ -100,18 +101,30 @@ borderRadius: BorderRadius.circular(30)
 }
 
 class _ColumInfo extends StatelessWidget {
-  const _ColumInfo({ required this.title, required this.info});
+  const _ColumInfo({required this.title, required this.info});
   final String title;
   final String info;
   @override
   Widget build(BuildContext context) {
-  final styleText = Theme.of(context).textTheme;
+    final styleText = Theme.of(context).textTheme;
     return Expanded(
       child: Column(
         children: [
-          Text(title, maxLines: 2, style: styleText.titleSmall, textAlign: TextAlign.center,),
+          Text(
+            title,
+            maxLines: 2,
+            style: styleText.titleSmall,
+            textAlign: TextAlign.center,
+          ),
           const SizedBox(height: 10),
-          Text(info, maxLines: 2, style:  styleText.titleMedium!.copyWith(fontWeight: FontWeight.w600, ), textAlign: TextAlign.center, ),
+          Text(
+            info,
+            maxLines: 2,
+            style: styleText.titleMedium!.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );
@@ -129,7 +142,13 @@ class _TopInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final styleText = Theme.of(context).textTheme;
     return Column(
-      children: [ImageSelect(image: book.imageBook), Text(book.title, style: styleText.displaySmall!.copyWith(color: Colors.white),)],
+      children: [
+        ImageSelect(image: book.imageBook),
+        Text(
+          book.title,
+          style: styleText.displaySmall!.copyWith(color: Colors.white),
+        )
+      ],
     );
   }
 }

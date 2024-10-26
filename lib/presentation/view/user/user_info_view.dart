@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:library_app/data/data.dart';
 import 'package:library_app/presentation/view/user/save_user_view.dart';
+import 'package:library_app/presentation/view/user/widgets/view_card_color.dart';
 import 'package:nav_service/nav_service.dart';
 
 import '../../provider/user/user_bloc.dart';
@@ -61,66 +62,71 @@ class _ListUsers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
     final provi = context.watch<UserBloc>();
     final styleText = Theme.of(context).textTheme;
     return Scaffold(
       body: provi.state.users.isEmpty
           ? const _EmptyList()
-          : Column(
-              children: [
-                Expanded(
-                  child: Center(
-                    child: ListView.builder(
-                      itemCount: provi.state.users.length,
-                      itemBuilder: (context, index) {
-                        final user = provi.state.users[index];
-                        return FadeInDown(
-                          child: Card(
-                            color: colors.primaryContainer,
-                            elevation: 0,
-                            child: ListTile(
-                              leading: ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: Container(
-                                      color: Colors.white,
-                                      child: Icon(
-                                        _getIcon(user.gender),
-                                        size: 60,
-                                      ))),
-                              title: Text(
-                                user.name,
-                                style: styleText.titleLarge!
-                                    .copyWith(fontWeight: FontWeight.w600),
-                              ),
-                              subtitle: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  _RowInfo(
-                                      data: user.lastName, tile: "Apellido"),
-                                  _RowInfo(data: user.email, tile: "Correo"),
-                                  _RowInfo(
-                                      data: user.gender.value, tile: "Genero"),
-                                  _RowInfo(
-                                      data: "${user.age.toString()} años",
-                                      tile: "Edad"),
-                                  _RowInfo(
-                                      data: DateFormat("dd/MM/yyyy")
-                                          .format(user.birthdate),
-                                      tile: "F.Nacimiento"),
-                                  _RowInfo(
-                                      data: user.phoneNumber, tile: "N.Cel."),
-                                ],
-                              ),
+          : ListView.separated(
+              separatorBuilder: (context, index) {
+                return const SizedBox(
+                  height: 20,
+                );
+              },
+              itemCount: provi.state.users.length,
+              itemBuilder: (context, index) {
+                final user = provi.state.users[index];
+                return Column(
+                  children: [
+                    FadeInDown(
+                      child: CardViewColor(
+                        widget: Column(
+                          children: [
+                            ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Container(
+                                    color: Colors.white,
+                                    child: Icon(
+                                      _getIcon(user.gender),
+                                      size: 60,
+                                    ))),
+                            Text(
+                              "${user.name} ${user.lastName}",
+                              style: styleText.titleLarge!
+                                  .copyWith(fontWeight: FontWeight.w600),
                             ),
-                          ),
-                        );
-                      },
+                            _RowInfo(data: user.email, tile: "Correo"),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                _RowInfo(
+                                    data: DateFormat("dd/MM/yyyy")
+                                        .format(user.birthdate),
+                                    tile: "F.Nacimiento"),
+                                _RowInfo(
+                                    data: "${user.age.toString()} años",
+                                    tile: "Edad"),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                _RowInfo(
+                                    data: user.phoneNumber, tile: "N.Cel."),
+                                _RowInfo(
+                                    data: user.gender.value, tile: "Genero"),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
+                    SizedBox(
+                        height:
+                            index + 1 == provi.state.users.length ? 150 : 0),
+                  ],
+                );
+              },
             ),
       floatingActionButton: FadeInUp(
         child: Column(
@@ -217,20 +223,22 @@ class _RowInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final styleText = Theme.of(context).textTheme;
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           "$tile: ",
-          style: styleText.bodyMedium,
+          style: styleText.titleSmall,
         ),
-        const SizedBox(width: 5),
-        Expanded(
-            child: Text(
+        Text(
           data,
-          style: styleText.bodyMedium,
+          style: styleText.titleMedium!.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
-        )),
+        ),
+        const SizedBox(height: 10),
       ],
     );
   }
