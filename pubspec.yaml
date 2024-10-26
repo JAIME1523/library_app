@@ -9,6 +9,7 @@ environment:
   sdk: ^3.5.3
 
 dependencies:
+  animate_do: ^3.3.4
   bloc: ^8.1.4
   cupertino_icons: ^1.0.8
   datetime_picker_formfield_new: ^2.1.0

@@ -7,6 +7,6 @@ class BookRepositoryIml extends BooksRepository {
 
   BookRepositoryIml(this.datasource);
   @override
-  Future<List<Book>> getBooksByQuery(String quey) async =>
-      datasource.getBooksByQuery(quey);
+  Future<List<Book>> getBooksByQuery(String quey,{int limit = 20, int offset = 0, }) async =>
+      datasource.getBooksByQuery(quey, limit: limit, offset: offset,);
 }

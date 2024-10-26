@@ -11,9 +11,13 @@ class OpenLibraryDatasource extends BooksDatasource {
   ));
 
   @override
-  Future<List<Book>> getBooksByQuery(String quey) async {
+  Future<List<Book>> getBooksByQuery(String quey,
+      {int limit = 20, int offset = 0}) async {
+    if (quey.isEmpty) return [];
+    
     try {
-      final respo = await dio.get("/search.json", queryParameters: {"q": quey});
+      final respo = await dio.get("/search.json",
+          queryParameters: {"q": quey, "limit": limit, "offset": offset});
       if (respo.statusCode != 200) {
         SnackService.showSnackbarError("No se puede obtener datos");
         return [];
@@ -25,8 +29,10 @@ class OpenLibraryDatasource extends BooksDatasource {
 
       return book;
     } catch (e) {
-        SnackService.showSnackbarError("Error en en app");
+      SnackService.showSnackbarError("Error en en app");
       return [];
     }
   }
 }
+//the lord of the rings
+

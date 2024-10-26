@@ -9,7 +9,6 @@ class AppTheme {
     colorScheme: ColorScheme.fromSeed(
     seedColor: const Color(0xFF0921AA),
     primary: const Color(0xFF0921AA),
-    brightness: Brightness.light,
     ), 
   );
 }

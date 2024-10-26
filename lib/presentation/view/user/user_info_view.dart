@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -64,68 +65,77 @@ class _ListUsers extends StatelessWidget {
     final provi = context.watch<UserBloc>();
     final styleText = Theme.of(context).textTheme;
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: Center(
-              child: ListView.builder(
-                itemCount: provi.state.users.length,
-                itemBuilder: (context, index) {
-                  final user = provi.state.users[index];
-                  return Card(
-                    color: colors.primaryContainer,
-                    elevation: 0,
-                    child: ListTile(
-                      leading: ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Container(
-                              color: Colors.white,
-                              child: Icon(
-                                _getIcon(user.gender),
-                                size: 60,
-                              ))),
-                      title: Text(
-                        user.name,
-                        style: styleText.titleLarge!
-                            .copyWith(fontWeight: FontWeight.w600),
-                      ),
-                      subtitle: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _RowInfo(data: user.lastName, tile: "Apellido"),
-                          _RowInfo(data: user.email, tile: "Correo"),
-                          _RowInfo(data: user.gender.value, tile: "Genero"),
-                          _RowInfo(
-                              data: "${user.age.toString()} años",
-                              tile: "Edad"),
-                          _RowInfo(
-                              data: DateFormat("dd/MM/yyyy")
-                                  .format(user.birthdate),
-                              tile: "F.Nacimiento"),
-                          _RowInfo(data: user.phoneNumber, tile: "N.Cel."),
-                        ],
-                      ),
+      body: provi.state.users.isEmpty
+          ? const _EmptyList()
+          : Column(
+              children: [
+                Expanded(
+                  child: Center(
+                    child: ListView.builder(
+                      itemCount: provi.state.users.length,
+                      itemBuilder: (context, index) {
+                        final user = provi.state.users[index];
+                        return FadeInDown(
+                          child: Card(
+                            color: colors.primaryContainer,
+                            elevation: 0,
+                            child: ListTile(
+                              leading: ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: Container(
+                                      color: Colors.white,
+                                      child: Icon(
+                                        _getIcon(user.gender),
+                                        size: 60,
+                                      ))),
+                              title: Text(
+                                user.name,
+                                style: styleText.titleLarge!
+                                    .copyWith(fontWeight: FontWeight.w600),
+                              ),
+                              subtitle: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _RowInfo(
+                                      data: user.lastName, tile: "Apellido"),
+                                  _RowInfo(data: user.email, tile: "Correo"),
+                                  _RowInfo(
+                                      data: user.gender.value, tile: "Genero"),
+                                  _RowInfo(
+                                      data: "${user.age.toString()} años",
+                                      tile: "Edad"),
+                                  _RowInfo(
+                                      data: DateFormat("dd/MM/yyyy")
+                                          .format(user.birthdate),
+                                      tile: "F.Nacimiento"),
+                                  _RowInfo(
+                                      data: user.phoneNumber, tile: "N.Cel."),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: () {
-              provi.add(ChagngeView(newView: ViewUserEnum.addUser));
-            },
-            child: const Icon(Icons.add),
-          ),
-          const SizedBox(height: 10),
-          _FloatDelete(provi: provi),
-        ],
+      floatingActionButton: FadeInUp(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: () {
+                provi.add(ChagngeView(newView: ViewUserEnum.addUser));
+              },
+              child: const Icon(Icons.add),
+            ),
+            const SizedBox(height: 10),
+            _FloatDelete(provi: provi),
+          ],
+        ),
       ),
     );
   }
@@ -140,6 +150,24 @@ class _ListUsers extends StatelessWidget {
       case GenderEnum.otro:
         return FontAwesomeIcons.personHalfDress;
     }
+  }
+}
+
+class _EmptyList extends StatelessWidget {
+  const _EmptyList();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text("No se encontró ningún registro"),
+          Icon(FontAwesomeIcons.faceSadCry)
+        ],
+      ),
+    );
   }
 }
 

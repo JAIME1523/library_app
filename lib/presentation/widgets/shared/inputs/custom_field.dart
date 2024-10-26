@@ -49,7 +49,7 @@ class CustomInputField extends StatelessWidget {
       children: [
         TextFormField(
           validator: validator,
-            focusNode: FocusNode(),
+            //focusNode: FocusNode(),
             //scrollPadding: scrollPadding,
             onChanged: onChange,
             controller: controller,

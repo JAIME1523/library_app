@@ -10,7 +10,6 @@ class CustomCalendar extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     return DateTimeField(
-      
         validator: (value) {
           if (value == null) return "Se requiere fecha";
           return null;
@@ -35,6 +34,7 @@ class CustomCalendar extends StatelessWidget {
         ),
         onChanged: onChanged,
         onShowPicker: (context, currentValue) async {
+          FocusManager.instance.primaryFocus?.unfocus();
           final date = await showDatePicker(
             context: context,
             firstDate: DateTime(1940),
